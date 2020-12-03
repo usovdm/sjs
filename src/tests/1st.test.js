@@ -1,6 +1,9 @@
-const { Builder, By, Key, until } = require('selenium-webdriver')
+const { By, Key, until } = require('selenium-webdriver')
+const { getDriver, afterEachCommon } = require('../utils')
 
 class Test {
+  // will be used for taking screenshots during the exceptions
+  // todo: move to separate module
   constructor(fn) {
     this.fn = fn
   }
@@ -18,10 +21,10 @@ class Test {
 describe('1st test', () => {
   let driver
   beforeEach(async () => {
-    driver = await new Builder().forBrowser('chrome').build()
+    driver = await getDriver()
   })
   afterEach(async () => {
-    await driver.quit();
+    await afterEachCommon(driver);
   })
   test('search name', new Test(async () => {
     await driver.get("https://www.google.ru/")
