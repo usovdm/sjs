@@ -1,4 +1,5 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
+const BaseTest = require('../core/BaseTest')
 
 describe('3rd suite', function () {
   let driver
@@ -8,7 +9,7 @@ describe('3rd suite', function () {
   afterEach(async function () {
     await driver.quit();
   })
-  it('search name', async function () {
+  it('search name', new BaseTest(async () => {
     await driver.get("https://www.google.ru/")
     await driver.manage().window().setRect(630, 691)
     await driver.findElement(By.name("q")).click()
@@ -16,5 +17,5 @@ describe('3rd suite', function () {
     await driver.findElement(By.name("q")).sendKeys(Key.ENTER)
     expect(await driver.findElement(By.css(".QXzCSe")).getText())
       .toEqual('"name": варианты перевода')
-  })
+  }))
 })
