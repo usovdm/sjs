@@ -6,7 +6,7 @@ function BaseTest(fn) {
   const onTestFinish = async () => { }
 
   const onTestFail = async (e) => {
-    console.log(e)
+    // console.log(e)
   }
 
   const baseTestRun = async () => {

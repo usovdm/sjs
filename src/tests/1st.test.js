@@ -19,6 +19,6 @@ describe('1st test', () => {
     const text = await driver.findElement(By.css(".QXzCSe")).getText()
 
     expect(text).toMatch('"name"')
-    expect(text).toMatch('варианты перевода')
+    expect(text).toMatch('варианты2 перевода')
   }))
 })
