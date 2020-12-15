@@ -3,11 +3,6 @@ module.exports = {
   setupFilesAfterEnv: ['./jest.setup.js'],
   reporters: [
     "default",
-    [
-      "./node_modules/jest-html-reporter",
-      {
-        includeFailureMsg: true
-      }
-    ],
+    "jest-html-reporters",
   ],
 }
