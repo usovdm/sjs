@@ -9,10 +9,18 @@ function BaseTest(fn) {
     // console.log(e)
   }
 
-  const baseTestRun = async () => {
+  beforeEach(async () => {
+    console.log('beforeEach BaseTest')
+  })
+
+  afterEach(async () => {
+    console.log('afterEach BaseTest')
+  })
+
+  const baseTestRun = async function () {
     try {
       await onTestStart()
-      await fn()
+      await fn.call(this)
     } catch (e) {
       await onTestFail(e)
       throw e
@@ -21,9 +29,10 @@ function BaseTest(fn) {
     }
   }
 
+  this.origFn = fn
   baseTestRun.origFn = fn
 
-  return baseTestRun
+  return baseTestRun.bind(this)
 }
 
 module.exports = BaseTest
