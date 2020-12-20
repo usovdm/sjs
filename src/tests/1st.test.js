@@ -3,9 +3,11 @@ const BaseTest = require('../core/BaseTest')
 const { getDriver, afterEachCommon } = require('../core/utils')
 const { addAttach } = require("jest-html-reporters/helper");
 
-describe('1st test', () => {
+describe('1st test', new BaseTest(function () {
   let driver
+  let num = this.num
   beforeEach(async () => {
+    console.log(this.num)
     console.log('beforeEach test 1')
     // driver = await getDriver()
   })
@@ -13,7 +15,7 @@ describe('1st test', () => {
     console.log('afterEach test 1')
     // await afterEachCommon(driver);
   })
-  it('search name', new BaseTest(async function () {
+  it('search name', (async function () {
     try {
       const res = this
       console.log(res)
@@ -33,4 +35,11 @@ describe('1st test', () => {
       throw e
     }
   }))
-})
+  it('num 2', () => {
+    console.log(this.num)
+  })
+  it('num 3', () => {
+  })
+  it('num 4', () => {
+  })
+}))

@@ -1,7 +1,7 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
 const BaseTest = require('../core/BaseTest')
 
-describe('3rd suite', function () {
+describe.skip('3rd suite', function () {
   let driver
   beforeEach(async function () {
     console.log('beforeEach test 3')
