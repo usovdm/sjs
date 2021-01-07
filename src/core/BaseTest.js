@@ -6,32 +6,27 @@ function BaseTest(fn) {
   const onTestFinish = async () => { }
 
   const onTestFail = async (e) => {
+    console.log('on error')
     // console.log(e)
   }
-  let num = 0
   beforeEach(async () => {
-    num += 1
-    this.num = num
-    console.log(num)
-    console.log('beforeEach BaseTest')
+    // console.log('beforeEach BaseTest')
   })
 
   afterEach(async () => {
-    console.log('afterEach BaseTest')
+    // console.log('afterEach BaseTest')
   })
 
   const baseTestRun = function () {
-    fn.call(this)
-    return
-    // try {
-    //   await onTestStart()
-    //   await fn.call(this)
-    // } catch (e) {
-    //   await onTestFail(e)
-    //   throw e
-    // } finally {
-    //   await onTestFinish()
-    // }
+    try {
+      await onTestStart()
+      await fn.call(this)
+    } catch (e) {
+      await onTestFail(e)
+      throw e
+    } finally {
+      await onTestFinish()
+    }
   }
 
   this.origFn = fn

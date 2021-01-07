@@ -1,15 +1,12 @@
-const { Builder, By, Key, until } = require('selenium-webdriver')
-const BaseTest = require('../core/BaseTest')
+const { By, Key, until } = require('selenium-webdriver')
+const BaseSuite = require('../core/BaseSuite')
 
-describe.skip('1st test in parallel 1', () => {
-  let driver
-  beforeEach(async () => {
-    driver = await new Builder().forBrowser('chrome').build()
-  })
-  afterEach(async () => {
-    await driver.quit();
-  })
-  it('search name', new BaseTest(async () => {
+describe.skip('1st test in parallel 1', new BaseSuite(function () {
+  const { getDriver } = this
+
+  it('search name', (async () => {
+    const driver = getDriver()
+
     await driver.get("https://www.google.ru/")
     await driver.manage().window().setRect(630, 691)
     await driver.findElement(By.name("q")).click()
@@ -20,4 +17,4 @@ describe.skip('1st test in parallel 1', () => {
     expect(text).toMatch('"name"')
     expect(text).toMatch('варианты перевода')
   }))
-})
+}))

@@ -1,19 +1,12 @@
 const { Builder, By, Key, until } = require('selenium-webdriver')
-const BaseTest = require('../core/BaseTest')
+const BaseSuite = require('../core/BaseSuite')
 
-describe.skip('3rd suite', function () {
-  let driver
-  beforeEach(async function () {
-    console.log('beforeEach test 3')
-    // driver = await new Builder().forBrowser('chrome').build()
-  })
-  afterEach(async function () {
-    console.log('afterEach test 3')
-    // await driver.quit();
-  })
+describe.skip('3rd suite', new BaseSuite(function () {
+  const { it, getDriver } = this
+
   it('search name', async () => {
-    console.log('test 3')
-    return
+    const driver = getDriver()
+
     await driver.get("https://www.google.ru/")
     await driver.manage().window().setRect(630, 691)
     await driver.findElement(By.name("q")).click()
@@ -22,4 +15,4 @@ describe.skip('3rd suite', function () {
     expect(await driver.findElement(By.css(".QXzCSe")).getText())
       .toEqual('"name": варианты перевода')
   })
-})
+}))
