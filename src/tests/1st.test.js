@@ -1,8 +1,8 @@
 import { By, Key } from 'selenium-webdriver';
-import BaseSuite from '../core/BaseSuite';
+import BrowserSuite from '../core/BrowserSuite';
 
 // eslint-disable-next-line func-names
-describe('1st test', new BaseSuite(function () {
+describe('1st test', new BrowserSuite(function () {
   const { getDriver } = this;
 
   it('search name 1', async () => {
