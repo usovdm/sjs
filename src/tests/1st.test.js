@@ -1,7 +1,7 @@
-/* eslint-disable jest/valid-describe */
-import { By, Key, until } from 'selenium-webdriver';
+import { By, Key } from 'selenium-webdriver';
 import BaseSuite from '../core/BaseSuite';
 
+// eslint-disable-next-line func-names
 describe('1st test', new BaseSuite(function () {
   const { getDriver } = this;
 

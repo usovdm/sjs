@@ -11,3 +11,5 @@ parserOptions:
 rules:
   no-console: 0
   import/extensions: 0
+  func-names: 0
+  jest/valid-describe: 0
