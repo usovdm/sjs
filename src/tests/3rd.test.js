@@ -1,5 +1,5 @@
-const { Builder, By, Key, until } = require('selenium-webdriver')
-const BaseSuite = require('../core/BaseSuite')
+import { Builder, By, Key, until } from 'selenium-webdriver'
+import BaseSuite from '../core/BaseSuite'
 
 describe.skip('3rd suite', new BaseSuite(function () {
   const { it, getDriver } = this

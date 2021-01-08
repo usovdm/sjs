@@ -1,5 +1,5 @@
-const { By, Key, until } = require('selenium-webdriver')
-const BaseSuite = require('../core/BaseSuite')
+import { By, Key, until } from 'selenium-webdriver'
+import BaseSuite from '../core/BaseSuite'
 
 describe.skip('1st test in parallel 1', new BaseSuite(function () {
   const { getDriver } = this
