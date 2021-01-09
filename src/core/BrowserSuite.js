@@ -29,7 +29,7 @@ class BrowserSuite {
 
   async addScreenshotToReport() {
     const screenshot = await this.getDriver().takeScreenshot();
-    await addAttach(Buffer.from(screenshot, 'base64'));
+    await addAttach(Buffer.from(screenshot, 'base64'), 'full page');
   }
 }
 

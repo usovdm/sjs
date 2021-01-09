@@ -29,9 +29,9 @@ describe('image comparison suite', new BrowserSuite(function () {
     const resultPixels = pixelmatch(img1.data, img2.data, diff.data, 484, 387);
 
     if (resultPixels !== 0) {
-      await addAttach(PNG.sync.write(img1));
-      await addAttach(PNG.sync.write(img2));
-      await addAttach(PNG.sync.write(diff));
+      await addAttach(PNG.sync.write(img1), 'expected');
+      await addAttach(PNG.sync.write(img2), 'actual');
+      await addAttach(PNG.sync.write(diff), 'diff');
     }
 
     expect(resultPixels).toBe(0);
