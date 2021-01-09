@@ -1,9 +1,6 @@
 import { By, until } from 'selenium-webdriver';
-import { addAttach } from 'jest-html-reporters/helper';
-import { PNG } from 'pngjs';
-import fs from 'fs';
-import pixelmatch from 'pixelmatch';
 import BrowserSuite from '../core/BrowserSuite';
+import { elementEqualToScreenshot } from '../core/utils';
 
 describe('image comparison suite', new BrowserSuite(function () {
   const { getDriver } = this;
@@ -20,21 +17,7 @@ describe('image comparison suite', new BrowserSuite(function () {
     const suggestions = await driver.wait(until.elementLocated(By.css('.UUbT9')));
     await driver.wait(until.elementIsVisible(suggestions));
 
-    const screenshot = await suggestions.takeScreenshot(true);
-
-    // compare screenshots by pixelmatch
-    const img1 = PNG.sync.read(fs.readFileSync('src/tests/images1.jpg'));
-    const img2 = PNG.sync.read(Buffer.from(screenshot, 'base64'));
-    const diff = new PNG({ width: 484, height: 387 });
-    const resultPixels = pixelmatch(img1.data, img2.data, diff.data, 484, 387);
-
-    if (resultPixels !== 0) {
-      await addAttach(PNG.sync.write(img1), 'expected');
-      await addAttach(PNG.sync.write(img2), 'actual');
-      await addAttach(PNG.sync.write(diff), 'diff');
-    }
-
-    expect(resultPixels).toBe(0);
+    expect(elementEqualToScreenshot(suggestions, 'src/tests/images1.jpg')).toBeTruthy();
   });
 
   it('check failed screenshot', async () => {
@@ -49,20 +32,6 @@ describe('image comparison suite', new BrowserSuite(function () {
     const suggestions = await driver.wait(until.elementLocated(By.css('.UUbT9')));
     await driver.wait(until.elementIsVisible(suggestions));
 
-    const screenshot = await suggestions.takeScreenshot(true);
-
-    // compare screenshots by pixelmatch
-    const img1 = PNG.sync.read(fs.readFileSync('src/tests/images1.jpg'));
-    const img2 = PNG.sync.read(Buffer.from(screenshot, 'base64'));
-    const diff = new PNG({ width: 484, height: 387 });
-    const resultPixels = pixelmatch(img1.data, img2.data, diff.data, 484, 387);
-
-    if (resultPixels !== 0) {
-      await addAttach(PNG.sync.write(img1));
-      await addAttach(PNG.sync.write(img2));
-      await addAttach(PNG.sync.write(diff));
-    }
-
-    expect(resultPixels).toBe(0);
+    expect(await elementEqualToScreenshot(suggestions, 'src/tests/images1.jpg')).toBeTruthy();
   });
 }));
