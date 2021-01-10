@@ -22,6 +22,10 @@ const elementEqualToScreenshot = async (element, imagePath) => {
 
   let diffPixels;
 
+  const addAttachExpected = async () => { await addAttach(PNG.sync.write(img1), 'expected'); };
+  const addAttachActual = async () => { await addAttach(PNG.sync.write(img2), 'actual'); };
+  const addAttachDiff = async () => { await addAttach(PNG.sync.write(diff), 'difference'); };
+
   try {
     diffPixels = pixelmatch(
       img1.data,
@@ -34,14 +38,15 @@ const elementEqualToScreenshot = async (element, imagePath) => {
     if (diffPixels === 0) {
       return true;
     }
-  } finally {
-    await addAttach(PNG.sync.write(img1), 'expected');
-    await addAttach(PNG.sync.write(img2), 'actual');
-
-    if (!Number.isNaN(parseFloat(diffPixels)) && diffPixels > 0) {
-      await addAttach(PNG.sync.write(diff), 'difference');
-    }
+  } catch (e) {
+    await addAttachExpected();
+    await addAttachActual();
+    throw e;
   }
+
+  await addAttachExpected();
+  await addAttachActual();
+  await addAttachDiff();
 
   return false;
 };
