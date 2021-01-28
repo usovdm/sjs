@@ -1,6 +1,6 @@
 import { By, until } from 'selenium-webdriver';
-import BrowserSuite from '../core/BrowserSuite';
-import { elementEqualToScreenshot } from '../core/utils';
+import BrowserSuite from '../src/core/BrowserSuite';
+import { elementEqualToScreenshot } from '../src/core/utils';
 
 describe('image comparison suite', new BrowserSuite(function () {
   const { getDriver } = this;

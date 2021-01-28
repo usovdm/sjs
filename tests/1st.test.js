@@ -1,5 +1,5 @@
 import { By, Key } from 'selenium-webdriver';
-import BrowserSuite from '../core/BrowserSuite';
+import BrowserSuite from '../src/core/BrowserSuite';
 
 // eslint-disable-next-line func-names
 describe.skip('1st test', new BrowserSuite(function () {
