@@ -17,7 +17,7 @@ describe('image comparison suite', new BrowserSuite(function () {
     const suggestions = await driver.wait(until.elementLocated(By.css('.UUbT9')));
     await driver.wait(until.elementIsVisible(suggestions));
 
-    expect(await elementEqualToScreenshot(suggestions, 'src/tests/images1.jpg')).toBeTruthy();
+    expect(await elementEqualToScreenshot(suggestions, 'tests/images1.jpg')).toBeTruthy();
   });
 
   it('check failed screenshot', async () => {
@@ -32,7 +32,7 @@ describe('image comparison suite', new BrowserSuite(function () {
     const suggestions = await driver.wait(until.elementLocated(By.css('.UUbT9')));
     await driver.wait(until.elementIsVisible(suggestions));
 
-    expect(await elementEqualToScreenshot(suggestions, 'src/tests/images1.jpg')).toBeTruthy();
+    expect(await elementEqualToScreenshot(suggestions, 'tests/images1.jpg')).toBeTruthy();
   });
 
   it('check wrong images sizes', async () => {
@@ -44,6 +44,6 @@ describe('image comparison suite', new BrowserSuite(function () {
     await nameQ.click();
     await nameQ.sendKeys('names');
 
-    expect(await elementEqualToScreenshot(nameQ, 'src/tests/images1.jpg')).toBeTruthy();
+    expect(await elementEqualToScreenshot(nameQ, 'tests/images1.jpg')).toBeTruthy();
   });
 }));
