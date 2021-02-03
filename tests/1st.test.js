@@ -2,7 +2,7 @@ import { By, Key } from 'selenium-webdriver';
 import BrowserSuite from '../src/core/BrowserSuite';
 
 // eslint-disable-next-line func-names
-describe.skip('1st test', new BrowserSuite(function () {
+describe('1st test', new BrowserSuite(function () {
   const { getDriver } = this;
 
   it('search name 1', async () => {
@@ -33,7 +33,7 @@ describe.skip('1st test', new BrowserSuite(function () {
     expect(text).toMatch('варианты перевода');
   });
 
-  it('search name 3', async () => {
+  it.skip('search name 3', async () => {
     const driver = getDriver();
 
     await driver.get('https://www.google.ru/');

@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import chromedriver from 'chromedriver';
 import fs from 'fs';
 import pixelmatch from 'pixelmatch';
 import { addAttach } from 'jest-html-reporters/helper';
