@@ -16,10 +16,39 @@ const ByTestId = (testId) => By.css(`[test-id="${testId}"`);
 const elementEqualToScreenshot = async (element, imagePath) => {
   const screenshot = await element.takeScreenshot(true);
 
-  const img1 = PNG.sync.read(fs.readFileSync(imagePath));
-  const img2 = PNG.sync.read(Buffer.from(screenshot, 'base64'));
+  const getPngFromFile = async (path) => new Promise((resolve) => {
+    fs.createReadStream(path).pipe(new PNG()).on('parsed', function () { return resolve(this); });
+  });
 
-  const { width, height } = img1;
+  const getPngFromBuffer = async (buffer) => new Promise((resolve, reject) => {
+    new PNG().parse(buffer, (error, data) => {
+      if (error) {
+        return reject(error);
+      }
+
+      return resolve(data);
+    });
+  });
+
+  const resizeImage = (PNGImageResource, newWidth, newHeight) => {
+    const newImg = new PNG({ newWidth, newHeight });
+    PNGImageResource.bitblt(newImg, 0, 0, PNGImageResource.width, PNGImageResource.height, 0, 0);
+    return newImg;
+  };
+
+  let img1 = await getPngFromFile(imagePath);
+  let img2 = await getPngFromBuffer(Buffer.from(screenshot, 'base64'));
+
+  const width = Math.max(img1.width, img2.width);
+  const height = Math.max(img1.height, img2.height);
+
+  if (img1.width < width || img1.height < height) {
+    img1 = resizeImage(img1, width, height);
+  }
+  if (img2.width < width || img2.height < height) {
+    img2 = resizeImage(img2, width, height);
+  }
+
   const diff = new PNG({ width, height });
 
   let diffPixels;
@@ -41,6 +70,7 @@ const elementEqualToScreenshot = async (element, imagePath) => {
       return true;
     }
   } catch (e) {
+    // take screenshot if pixelmatch dropped with Exception
     await addAttachExpected();
     await addAttachActual();
     throw e;
