@@ -2,6 +2,6 @@
 .vscode
 node_modules
 debug.log
-package-json.lock
+package-lock.json
 jest_html_reporters.html
 jest-html-reporters-attach
