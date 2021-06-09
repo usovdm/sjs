@@ -45,17 +45,20 @@ const elementEqualToScreenshot = async (element, imagePath) => {
     return newImg;
   };
 
-  let img1 = await getPngFromFile(imagePath);
-  let img2 = await getPngFromBuffer(Buffer.from(screenshot, 'base64'));
+  const img1 = await getPngFromFile(imagePath);
+  const img2 = await getPngFromBuffer(Buffer.from(screenshot, 'base64'));
+
+  let img1extended;
+  let img2extended;
 
   const width = Math.max(img1.width, img2.width);
   const height = Math.max(img1.height, img2.height);
 
   if (img1.width < width || img1.height < height) {
-    img1 = extendImageCanvas(img1, width, height);
+    img1extended = extendImageCanvas(img1, width, height);
   }
   if (img2.width < width || img2.height < height) {
-    img2 = extendImageCanvas(img2, width, height);
+    img2extended = extendImageCanvas(img2, width, height);
   }
 
   const diff = new PNG({ width, height });
@@ -68,8 +71,8 @@ const elementEqualToScreenshot = async (element, imagePath) => {
 
   try {
     diffPixels = pixelmatch(
-      img1.data,
-      img2.data,
+      img1extended ? img1extended.data : img1.data,
+      img2extended ? img2extended.data : img2.data,
       diff.data,
       width,
       height,

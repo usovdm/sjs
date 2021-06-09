@@ -8,8 +8,8 @@ describe('image comparison suite', new BrowserSuite(function () {
   it('check proper screenshot', async () => {
     const driver = getDriver();
 
-    await driver.get('https://www.github.com/');
-    const logo = driver.findElement(By.css('.header-search'));
+    await driver.get('https://en.wikipedia.org/wiki/Main_Page');
+    const logo = driver.findElement(By.id('p-logo'));
 
     expect(await elementEqualToScreenshot(logo, 'tests/logo.jpg')).toBeTruthy();
   });
